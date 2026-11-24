@@ -259,7 +259,7 @@ const loginForm = document.getElementById("loginForm");
 const registerForm = document.getElementById("registerForm");
 const notice = document.getElementById("notice");
 
-loginTab.onclick = () => {
+function showLogin() {
     loginForm.hidden = false;
     registerForm.hidden = true;
 
@@ -267,9 +267,9 @@ loginTab.onclick = () => {
     registerTab.classList.remove("active");
 
     notice.textContent = "";
-};
+}
 
-registerTab.onclick = () => {
+function showRegister() {
     loginForm.hidden = true;
     registerForm.hidden = false;
 
@@ -277,12 +277,15 @@ registerTab.onclick = () => {
     loginTab.classList.remove("active");
 
     notice.textContent = "";
-};
+}
 
-// 
+loginTab.type = "button";
+registerTab.type = "button";
 
-    
-loginForm.onsubmit = (e) => {
+loginTab.addEventListener("click", showLogin);
+registerTab.addEventListener("click", showRegister);
+
+loginForm.addEventListener("submit", function(e) {
     e.preventDefault();
 
     const username =
@@ -291,8 +294,7 @@ loginForm.onsubmit = (e) => {
     const password =
         document.getElementById("loginPassword").value;
 
-    if (typeof window.cef === "undefined" ||
-        typeof window.cef.emit !== "function") {
+    if (!window.cef || typeof window.cef.emit !== "function") {
         notice.textContent = "Conexão CEF indisponível!";
         return;
     }
@@ -303,9 +305,9 @@ loginForm.onsubmit = (e) => {
     });
 
     notice.textContent = "Solicitação de login enviada!";
-};
+});
 
-registerForm.onsubmit = (e) => {
+registerForm.addEventListener("submit", function(e) {
     e.preventDefault();
 
     const firstName =
@@ -325,8 +327,7 @@ registerForm.onsubmit = (e) => {
         return;
     }
 
-    if (typeof window.cef === "undefined" ||
-        typeof window.cef.emit !== "function") {
+    if (!window.cef || typeof window.cef.emit !== "function") {
         notice.textContent = "Conexão CEF indisponível!";
         return;
     }
@@ -338,5 +339,9 @@ registerForm.onsubmit = (e) => {
     });
 
     notice.textContent = "Solicitação de cadastro enviada!";
-};
-    
+});
+
+showLogin();
+</script>
+</body>
+</html>
