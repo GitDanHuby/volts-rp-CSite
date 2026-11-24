@@ -279,17 +279,40 @@ registerTab.onclick = () => {
     notice.textContent = "";
 };
 
-// Apenas demonstração visual.
-// Ainda não envia dados ao servidor.
+// 
 
+    
 loginForm.onsubmit = (e) => {
     e.preventDefault();
-    notice.textContent =
-        "Login aguardando conexão com o servidor!";
+
+    const username =
+        document.getElementById("loginName").value.trim();
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+    if (typeof window.cef === "undefined" ||
+        typeof window.cef.emit !== "function") {
+        notice.textContent = "Conexão CEF indisponível!";
+        return;
+    }
+
+    window.cef.emit("volts:login", {
+        username: username,
+        password: password
+    });
+
+    notice.textContent = "Solicitação de login enviada!";
 };
 
 registerForm.onsubmit = (e) => {
     e.preventDefault();
+
+    const firstName =
+        document.getElementById("firstName").value.trim();
+
+    const lastName =
+        document.getElementById("lastName").value.trim();
 
     const password =
         document.getElementById("registerPassword").value;
@@ -302,11 +325,18 @@ registerForm.onsubmit = (e) => {
         return;
     }
 
-    notice.textContent =
-        "Cadastro aguardando conexão com o servidor!";
-};
-</script>
+    if (typeof window.cef === "undefined" ||
+        typeof window.cef.emit !== "function") {
+        notice.textContent = "Conexão CEF indisponível!";
+        return;
+    }
 
-</body>
-              </html>
-              
+    window.cef.emit("volts:register", {
+        firstName: firstName,
+        lastName: lastName,
+        password: password
+    });
+
+    notice.textContent = "Solicitação de cadastro enviada!";
+};
+    
