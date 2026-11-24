@@ -262,20 +262,16 @@ const notice = document.getElementById("notice");
 function showLogin() {
     loginForm.hidden = false;
     registerForm.hidden = true;
-
     loginTab.classList.add("active");
     registerTab.classList.remove("active");
-
     notice.textContent = "";
 }
 
 function showRegister() {
     loginForm.hidden = true;
     registerForm.hidden = false;
-
     registerTab.classList.add("active");
     loginTab.classList.remove("active");
-
     notice.textContent = "";
 }
 
@@ -285,14 +281,42 @@ registerTab.type = "button";
 loginTab.addEventListener("click", showLogin);
 registerTab.addEventListener("click", showRegister);
 
+// RESPOSTAS DO SERVIDOR
+
+if (window.cef && typeof window.cef.on === "function") {
+
+    window.cef.on("volts:loginError", function(message) {
+        notice.textContent = message || "Falha no login!";
+    });
+
+    window.cef.on("volts:registerError", function(message) {
+        notice.textContent = message || "Falha no cadastro!";
+    });
+
+    window.cef.on("volts:loginSuccess", function(message) {
+        notice.textContent = message || "Login realizado com sucesso!";
+
+        setTimeout(function() {
+            window.cef.emit("volts:close", {});
+        }, 1200);
+    });
+
+    window.cef.on("volts:registerSuccess", function(message) {
+        notice.textContent = message || "Cadastro realizado!";
+
+        setTimeout(function() {
+            window.cef.emit("volts:close", {});
+        }, 1200);
+    });
+}
+
+// ENVIAR LOGIN
+
 loginForm.addEventListener("submit", function(e) {
     e.preventDefault();
 
-    const username =
-        document.getElementById("loginName").value.trim();
-
-    const password =
-        document.getElementById("loginPassword").value;
+    const username = document.getElementById("loginName").value.trim();
+    const password = document.getElementById("loginPassword").value;
 
     if (!window.cef || typeof window.cef.emit !== "function") {
         notice.textContent = "Conexão CEF indisponível!";
@@ -304,23 +328,18 @@ loginForm.addEventListener("submit", function(e) {
         password: password
     });
 
-    notice.textContent = "Solicitação de login enviada!";
+    notice.textContent = "Verificando sua conta...";
 });
+
+// ENVIAR CADASTRO
 
 registerForm.addEventListener("submit", function(e) {
     e.preventDefault();
 
-    const firstName =
-        document.getElementById("firstName").value.trim();
-
-    const lastName =
-        document.getElementById("lastName").value.trim();
-
-    const password =
-        document.getElementById("registerPassword").value;
-
-    const confirm =
-        document.getElementById("confirmPassword").value;
+    const firstName = document.getElementById("firstName").value.trim();
+    const lastName = document.getElementById("lastName").value.trim();
+    const password = document.getElementById("registerPassword").value;
+    const confirm = document.getElementById("confirmPassword").value;
 
     if (password !== confirm) {
         notice.textContent = "As senhas não são iguais!";
@@ -338,7 +357,7 @@ registerForm.addEventListener("submit", function(e) {
         password: password
     });
 
-    notice.textContent = "Solicitação de cadastro enviada!";
+    notice.textContent = "Criando sua conta...";
 });
 
 showLogin();
