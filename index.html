@@ -283,32 +283,46 @@ registerTab.addEventListener("click", showRegister);
 
 // RESPOSTAS DO SERVIDOR
 
-if (window.cef && typeof window.cef.on === "function") {
+(function waitForVoltsCef() {
+    let attempts = 0;
 
-    window.cef.on("volts:loginError", function(message) {
-        notice.textContent = message || "Falha no login!";
-    });
+    const timer = setInterval(function() {
+        attempts++;
 
-    window.cef.on("volts:registerError", function(message) {
-        notice.textContent = message || "Falha no cadastro!";
-    });
+        if (window.cef && typeof window.cef.on === "function") {
+            clearInterval(timer);
 
-    window.cef.on("volts:loginSuccess", function(message) {
-        notice.textContent = message || "Login realizado com sucesso!";
+            window.cef.on("volts:loginError", function(message) {
+                notice.textContent = message || "Falha no login!";
+            });
 
-        setTimeout(function() {
-            window.cef.emit("volts:close", {});
-        }, 1200);
-    });
+            window.cef.on("volts:registerError", function(message) {
+                notice.textContent = message || "Falha no cadastro!";
+            });
 
-    window.cef.on("volts:registerSuccess", function(message) {
-        notice.textContent = message || "Cadastro realizado!";
+            window.cef.on("volts:loginSuccess", function(message) {
+                notice.textContent = message || "Login realizado com sucesso!";
 
-        setTimeout(function() {
-            window.cef.emit("volts:close", {});
-        }, 1200);
-    });
-}
+                setTimeout(function() {
+                    window.cef.emit("volts:close", {});
+                }, 1200);
+            });
+
+            window.cef.on("volts:registerSuccess", function(message) {
+                notice.textContent = message || "Cadastro realizado!";
+
+                setTimeout(function() {
+                    window.cef.emit("volts:close", {});
+                }, 1200);
+            });
+        }
+
+        if (attempts >= 100) {
+            clearInterval(timer);
+            console.log("[VOLTS CEF] Comunicação não encontrada.");
+        }
+    }, 100);
+})();
 
 // ENVIAR LOGIN
 
