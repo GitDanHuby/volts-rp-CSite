@@ -2,14 +2,50 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090a0e">
-<title>FKDEV • Painel Staff | Volts RP</title>
+<title>TKDEV • Painel Staff | Volts RP</title>
+
+/* VOLTS RP - PAINEL STAFF COMPACTO */
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background: transparent !important;
+}
+
+body {
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+.app {
+    width: min(1180px, calc(100vw - 40px));
+    height: min(760px, calc(100vh - 40px));
+    min-height: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(9, 10, 14, 0.94);
+}
+
+.main {
+    min-height: 0;
+    overflow-y: auto;
+}
+
+@media (max-width: 600px) {
+    .app {
+        width: calc(100vw - 20px);
+        height: calc(100vh - 20px);
+    }
+}
+  
 <style>
 :root{--bg:#090a0e;--panel:#11131a;--panel2:#171a23;--line:#292d38;--red:#e52d40;--red2:#a9192a;--txt:#f4f5f7;--muted:#9298a6;--green:#35c98a}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% 0,rgba(229,45,64,.12),transparent 28%),var(--bg);color:var(--txt);font:14px Arial,sans-serif;min-height:100vh}.app{display:flex;min-height:100vh}.side{width:238px;background:#0d0f14;border-right:1px solid var(--line);padding:22px 14px;display:flex;flex-direction:column;flex-shrink:0}.brand{padding:4px 12px 25px;border-bottom:1px solid var(--line);margin-bottom:20px}.brand b{font-size:22px;letter-spacing:2px}.brand b span{color:var(--red)}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px;margin-top:7px}.nav-label{font-size:9px;color:#666d7b;letter-spacing:1.8px;padding:10px 12px}.nav button{display:flex;align-items:center;gap:12px;width:100%;padding:12px;border:0;border-radius:8px;background:transparent;color:#aeb3bf;text-align:left;font-weight:700;font-size:12px;margin:3px 0;cursor:pointer}.nav button .ico{width:20px;text-align:center;font-size:15px}.nav button.active,.nav button:hover{background:linear-gradient(90deg,rgba(229,45,64,.2),rgba(229,45,64,.04));color:#fff}.nav button.active{box-shadow:inset 3px 0 var(--red)}.nav .exit{margin-top:auto;color:#ff7884}.side-foot{margin-top:auto;padding:15px 12px 0;border-top:1px solid var(--line);color:#777e8c;font-size:10px;line-height:1.7}.main{flex:1;min-width:0}.top{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px;background:rgba(13,15,20,.78)}.top-title{font-weight:800;font-size:15px}.top-right{display:flex;align-items:center;gap:18px}.bell{position:relative;background:var(--panel2);border:1px solid var(--line);border-radius:9px;width:38px;height:38px;color:white;font-size:16px}.dot{position:absolute;right:6px;top:5px;background:var(--red);border-radius:50%;width:7px;height:7px}.staff{display:flex;align-items:center;gap:10px}.avatar{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--red),#731321);display:grid;place-items:center;font-weight:900}.staff small{display:block;color:var(--muted);font-size:10px;margin-top:3px}.content{padding:28px;max-width:1500px;margin:auto}.page{display:none}.page.active{display:block}.welcome{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:24px}.eyebrow{color:var(--red);font-size:10px;font-weight:900;letter-spacing:2px}.welcome h1{font-size:25px;margin:8px 0}.welcome p{color:var(--muted);margin:0;font-size:12px}.tag{border:1px solid rgba(229,45,64,.35);background:rgba(229,45,64,.08);padding:9px 12px;border-radius:8px;color:#ff8792;font-size:10px;font-weight:800}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card{background:linear-gradient(145deg,#151821,#101219);border:1px solid var(--line);border-radius:12px;padding:18px;min-width:0}.stat-head{display:flex;justify-content:space-between;color:var(--muted);font-size:11px}.stat-icon{width:34px;height:34px;border-radius:9px;background:rgba(229,45,64,.12);display:grid;place-items:center;color:#ff7d89}.stat-num{font-size:27px;font-weight:900;margin:18px 0 5px}.stat-sub{color:#747b89;font-size:10px}.section-title{font-size:15px;font-weight:900;margin:25px 0 13px}.split{display:grid;grid-template-columns:1.25fr 1fr;gap:14px}.empty{padding:22px;text-align:center;color:var(--muted);font-size:12px;border:1px dashed #353a46;border-radius:9px}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin:14px 0}.field{background:#0d0f15;border:1px solid var(--line);border-radius:8px;color:white;padding:11px 12px;min-width:0;outline:none}.field:focus{border-color:var(--red)}.btn{border:0;border-radius:8px;padding:11px 15px;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;font-size:11px;font-weight:900;cursor:pointer}.btn.secondary{background:#222631;border:1px solid #343a48}.btn.danger{background:#5b2029;border:1px solid #87313e}.btn:disabled{opacity:.5}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:520px}th,td{text-align:left;padding:13px 10px;border-bottom:1px solid var(--line);font-size:11px}th{color:#858c9a;font-size:9px;letter-spacing:1px}td{color:#d8dbe2}.status{color:var(--green)}.actions{display:flex;gap:6px;flex-wrap:wrap}.actions .btn{padding:7px 9px;font-size:9px}.muted{color:var(--muted);font-size:11px;line-height:1.7}.log-row{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:11px}.log-row small{color:var(--muted)}.placeholder{min-height:210px;display:grid;place-items:center;text-align:center;color:var(--muted)}.placeholder b{display:block;color:#fff;margin-bottom:8px}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#202530;border:1px solid #3b4352;border-radius:9px;padding:12px 16px;color:#fff;font-size:12px;display:none;z-index:5}.toast.show{display:block}.mobile-head{display:none}
 @media(max-width:850px){.side{width:190px}.content{padding:20px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.split{grid-template-columns:1fr}}
 @media(max-width:600px){.app{display:block}.side{width:auto;padding:10px;border-right:0;border-bottom:1px solid var(--line)}.brand{padding:5px 8px 12px;margin-bottom:8px}.brand b{font-size:18px}.nav-label{display:none}.nav{display:flex;overflow:auto;gap:5px}.nav button{white-space:nowrap;width:auto;padding:10px;font-size:10px}.nav button .ico{display:none}.side-foot{display:none}.top{height:60px;padding:0 14px}.top-title{font-size:12px}.content{padding:17px 13px}.welcome{align-items:flex-start;flex-direction:column}.welcome h1{font-size:21px}.grid{gap:9px}.card{padding:13px}.stat-num{font-size:23px}.top-right{gap:9px}.staff small{font-size:9px}}
 </style></head>
 <body><div class="app">
-<aside class="side"><div class="brand"><b><span>FK</span>DEV</b><small>VOLTS ROLEPLAY • STAFF</small></div>
+<aside class="side"><div class="brand"><b><span>TK</span>DEV</b><small>VOLTS ROLEPLAY • STAFF</small></div>
 <div class="nav-label">MENU PRINCIPAL</div><nav class="nav" id="nav">
 <button class="active" data-page="home"><span class="ico">⌂</span>Página Inicial</button>
 <button data-page="players"><span class="ico">♙</span>Jogadores</button>
@@ -22,7 +58,7 @@
 <button data-page="logs"><span class="ico">≡</span>Logs Painel</button>
 <button data-page="teleports"><span class="ico">⌖</span>Teleportes</button>
 <button class="exit" id="exit"><span class="ico">↪</span>Sair</button>
-</nav><div class="side-foot">PAINEL ADMINISTRATIVO<br>Desenvolvido por <b>FKDEV</b></div></aside>
+</nav><div class="side-foot">PAINEL ADMINISTRATIVO<br>Desenvolvido por <b>TKDEV</b></div></aside>
 <main class="main"><header class="top"><div class="top-title">⚙ &nbsp; Painel Admin</div><div class="top-right"><button class="bell" title="Notificações">♧<i class="dot"></i></button><div class="staff"><div class="avatar" id="avatar">S</div><div><b id="staffName">Staff</b><small>Administrador</small></div></div></div></header>
 <div class="content">
 <section class="page active" id="page-home"><div class="welcome"><div><div class="eyebrow">CENTRAL DE CONTROLE</div><h1>Bem-vindo, <span id="welcomeName">Staff</span>!</h1><p>Gerencie as atividades do servidor Volts RolePlay.</p></div><span class="tag">● PAINEL STAFF</span></div>
@@ -59,7 +95,23 @@ function setStaff(name){name=String(name||'Staff');$('staffName').textContent=na
 function setPlayers(list){const body=$('playersBody');body.replaceChildren();if(!Array.isArray(list)||!list.length){body.innerHTML='<tr><td colspan="4" class="muted">Nenhum jogador online.</td></tr>';return}list.forEach(p=>{const tr=document.createElement('tr');const id=String(p.id??'');const name=esc(p.name??'Desconhecido');tr.innerHTML=`<td>${esc(id)}</td><td><b>${name}</b></td><td class="status">● Online</td><td><div class="actions"><button class="btn secondary" data-act="goto">IR ATÉ</button><button class="btn secondary" data-act="bring">TRAZER</button><button class="btn secondary" data-act="freeze">CONGELAR</button><button class="btn secondary" data-act="unfreeze">DESCONGELAR</button><button class="btn secondary" data-act="warn">ADVERTIR</button><button class="btn danger" data-act="kick">EXPULSAR</button></div></td>`;tr.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{const a=b.dataset.act;let reason={};if(a==='warn'||a==='kick'){const value=prompt(a==='warn'?'Motivo da advertência:':'Motivo da expulsão:');if(value===null)return;reason.reason=value}if(confirm('Confirmar ação '+a+' em '+(p.name||id)+'?'))action(a,id,reason)}));body.appendChild(tr)})}
 function setLogs(items){const el=$('logsList'),home=$('homeLogs');const render=target=>{target.replaceChildren();if(!Array.isArray(items)||!items.length){target.innerHTML='<div class="empty">Nenhum registro disponível.</div>';return}items.slice(0,30).forEach(x=>{const row=document.createElement('div');row.className='log-row';row.innerHTML=`<span><b>${esc(x.staff||'Staff')}</b> • ${esc(x.action||'Ação')} <small>${esc(x.details||'')}</small></span><small>${esc(x.time||'')}</small>`;target.appendChild(row)})};render(el);render(home)}
 function setTeleports(items){const el=$('teleportsList');el.replaceChildren();if(!Array.isArray(items)||!items.length){el.innerHTML='<div class="empty">Nenhum teleporte salvo.</div>';return}items.forEach(x=>{const row=document.createElement('div');row.className='log-row';row.innerHTML=`<span><b>${esc(x.name)}</b><br><small>${esc(x.creator||'')}</small></span><button class="btn secondary">USAR</button>`;row.querySelector('button').addEventListener('click',()=>action('use_teleport','',{name:String(x.name)}));el.appendChild(row)})}
-function onEvent(name,fn){if(window.cef&&typeof window.cef.on==='function')window.cef.on(name,fn)}
+function onEvent(name, fn) {
+  if (window.cef && typeof window.cef.on === 'function') {
+    window.cef.on(name, value => {
+      let data = value;
+
+      if (typeof value === 'string') {
+        try {
+          data = JSON.parse(value);
+        } catch (e) {
+          data = value;
+        }
+      }
+
+      fn(data);
+    });
+  }
+}
 function registerBridge(){if(cefReady||!window.cef||typeof window.cef.on!=='function')return;cefReady=true;
 onEvent('volts:staffData',d=>{staffAuthorized=!!(d&&d.authorized);if(!staffAuthorized){toast('Acesso negado pelo servidor.');return}setStaff(d.name);if(d.stats){$('statPlayers').textContent=d.stats.players??'--';$('statStaff').textContent=d.stats.staff??'--'}toast('Painel conectado ao servidor.')});
 onEvent('volts:staffPlayers',setPlayers);onEvent('volts:staffLogs',setLogs);onEvent('volts:staffTeleports',setTeleports);
