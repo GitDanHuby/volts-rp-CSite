@@ -141,6 +141,7 @@ input:focus {
     border-radius: 7px;
     font-weight: 900;
     letter-spacing: 1px;
+    cursor: pointer;
 }
 
 .action:active {
@@ -153,6 +154,66 @@ input:focus {
     text-align: center;
     margin-top: 15px;
     min-height: 16px;
+}
+
+/* CONTAS SALVAS */
+
+.accounts-view h2 {
+    margin-top: 0;
+}
+
+.account-list {
+    display: grid;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.account-option {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    color: white;
+    text-align: left;
+    background: #171717;
+    border: 1px solid #444;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.account-option:active {
+    border-color: #ffcc00;
+    background: #242424;
+}
+
+.account-avatar {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    color: #111;
+    background: #ffcc00;
+    border-radius: 50%;
+    font-weight: 900;
+}
+
+.account-name {
+    font-weight: bold;
+    overflow-wrap: anywhere;
+}
+
+.secondary-action {
+    width: 100%;
+    padding: 13px;
+    margin-top: 12px;
+    color: #ffcc00;
+    background: transparent;
+    border: 1px solid #665500;
+    border-radius: 7px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .footer {
@@ -185,7 +246,6 @@ input:focus {
 
     <div class="logo">
 
-        <!-- SUA LOGO: substitua logo.png pela imagem desejada -->
         <img
             src="logo.png"
             class="logo-img"
@@ -195,32 +255,64 @@ input:focus {
 
         <h1><span>VOLTS</span> RP</h1>
         <p>SUA HISTÓRIA COMEÇA AQUI</p>
+
     </div>
 
     <div class="panel">
 
         <div class="tabs">
-            <button id="loginTab" class="active">ENTRAR</button>
-            <button id="registerTab">REGISTRAR</button>
+            <button id="loginTab" class="active" type="button">ENTRAR</button>
+            <button id="registerTab" type="button">REGISTRAR</button>
         </div>
+
+        <!-- CONTAS SALVAS -->
+
+        <section id="accountsView" hidden>
+
+            <h2>Bem-vindo de volta!</h2>
+
+            <p class="subtitle">
+                Escolha uma conta salva neste dispositivo.
+            </p>
+
+            <div id="accountList" class="account-list"></div>
+
+            <button
+                id="addAccountButton"
+                class="action"
+                type="button"
+            >
+                ADICIONAR OUTRA CONTA
+            </button>
+
+        </section>
+
+        <!-- LOGIN -->
 
         <form id="loginForm">
 
             <h2>Bem-vindo de volta!</h2>
+
             <p class="subtitle">
                 Entre na sua conta para jogar.
             </p>
 
             <label>NOME DO PERSONAGEM</label>
-            <input id="loginName"
+
+            <input
+                id="loginName"
                 placeholder="Ex.: Dan_TK"
-                required>
+                required
+            >
 
             <label>SENHA</label>
-            <input id="loginPassword"
+
+            <input
+                id="loginPassword"
                 type="password"
                 placeholder="Sua senha"
-                required>
+                required
+            >
 
             <button class="action" type="submit">
                 ENTRAR NO SERVIDOR
@@ -228,42 +320,57 @@ input:focus {
 
         </form>
 
+        <!-- CADASTRO -->
+
         <form id="registerForm" hidden>
 
             <h2>Crie sua conta</h2>
+
             <p class="subtitle">
                 Cadastre seu personagem no Volts RP.
             </p>
 
             <div class="row">
+
                 <div>
                     <label>NOME</label>
-                    <input id="firstName"
+                    <input
+                        id="firstName"
                         placeholder="Nome"
-                        required>
+                        required
+                    >
                 </div>
 
                 <div>
                     <label>SOBRENOME</label>
-                    <input id="lastName"
+                    <input
+                        id="lastName"
                         placeholder="Sobrenome"
-                        required>
+                        required
+                    >
                 </div>
+
             </div>
 
             <label>SENHA</label>
-            <input id="registerPassword"
+
+            <input
+                id="registerPassword"
                 type="password"
                 minlength="6"
                 placeholder="Mínimo 6 caracteres"
-                required>
+                required
+            >
 
             <label>CONFIRMAR SENHA</label>
-            <input id="confirmPassword"
+
+            <input
+                id="confirmPassword"
                 type="password"
                 minlength="6"
                 placeholder="Repita sua senha"
-                required>
+                required
+            >
 
             <button class="action" type="submit">
                 CRIAR CONTA
@@ -282,129 +389,309 @@ input:focus {
 </div>
 
 <script>
+
 const loginTab = document.getElementById("loginTab");
 const registerTab = document.getElementById("registerTab");
 
 const loginForm = document.getElementById("loginForm");
 const registerForm = document.getElementById("registerForm");
+
 const notice = document.getElementById("notice");
 
+const accountsView = document.getElementById("accountsView");
+const accountList = document.getElementById("accountList");
+
+const addAccountButton = document.getElementById("addAccountButton");
+const tabs = document.querySelector(".tabs");
+
+// ==========================================
+// MOSTRAR LOGIN
+// ==========================================
+
 function showLogin() {
+
+    accountsView.hidden = true;
     loginForm.hidden = false;
     registerForm.hidden = true;
+
+    tabs.hidden = false;
+
     loginTab.classList.add("active");
     registerTab.classList.remove("active");
+
     notice.textContent = "";
 }
+
+// ==========================================
+// MOSTRAR CADASTRO
+// ==========================================
 
 function showRegister() {
+
+    accountsView.hidden = true;
     loginForm.hidden = true;
     registerForm.hidden = false;
+
+    tabs.hidden = false;
+
     registerTab.classList.add("active");
     loginTab.classList.remove("active");
+
     notice.textContent = "";
 }
 
-loginTab.type = "button";
-registerTab.type = "button";
+// ==========================================
+// MOSTRAR CONTAS SALVAS
+// ==========================================
+
+function showAccounts(usernames) {
+
+    loginForm.hidden = true;
+    registerForm.hidden = true;
+
+    accountsView.hidden = false;
+    tabs.hidden = true;
+
+    accountList.replaceChildren();
+
+    notice.textContent = "";
+
+    usernames.slice(0, 3).forEach(function(username) {
+
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.className = "account-option";
+
+        const avatar = document.createElement("span");
+
+        avatar.className = "account-avatar";
+        avatar.textContent = username.charAt(0).toUpperCase();
+
+        const name = document.createElement("span");
+
+        name.className = "account-name";
+        name.textContent = username;
+
+        button.appendChild(avatar);
+        button.appendChild(name);
+
+        button.addEventListener("click", function() {
+
+            if (!window.cef || typeof window.cef.emit !== "function") {
+
+                notice.textContent = "Conexão CEF indisponível!";
+                return;
+
+            }
+
+            notice.textContent = "Entrando em " + username + "...";
+
+            window.cef.emit("volts:deviceLogin", username);
+
+        });
+
+        accountList.appendChild(button);
+
+    });
+
+}
+
+// ==========================================
+// ABRIR TELAS
+// ==========================================
 
 loginTab.addEventListener("click", showLogin);
 registerTab.addEventListener("click", showRegister);
 
-// RESPOSTAS DO SERVIDOR
+addAccountButton.addEventListener("click", showLogin);
+
+// ==========================================
+// COMUNICACAO COM O SERVIDOR
+// ==========================================
 
 (function waitForVoltsCef() {
+
     let attempts = 0;
 
     const timer = setInterval(function() {
+
         attempts++;
 
         if (window.cef && typeof window.cef.on === "function") {
+
             clearInterval(timer);
 
-            window.cef.on("volts:loginError", function(message) {
-                notice.textContent = message || "Falha no login!";
+            // RECEBER CONTAS SALVAS
+
+            window.cef.on("volts:accounts", function(data) {
+
+                const value = String(data || "").trim();
+
+                if (!value || value === "-") {
+
+                    showLogin();
+                    return;
+
+                }
+
+                const usernames = value.split("|")
+                    .map(function(name) {
+                        return name.trim();
+                    })
+                    .filter(function(name) {
+                        return name.length > 0;
+                    })
+                    .slice(0, 3);
+
+                if (usernames.length > 0) {
+
+                    showAccounts(usernames);
+
+                } else {
+
+                    showLogin();
+
+                }
+
             });
+
+            // ERRO DE LOGIN
+
+            window.cef.on("volts:loginError", function(message) {
+
+                notice.textContent = message || "Falha no login!";
+
+            });
+
+            // ERRO DE CADASTRO
 
             window.cef.on("volts:registerError", function(message) {
+
                 notice.textContent = message || "Falha no cadastro!";
+
             });
 
+            // LOGIN REALIZADO
+
             window.cef.on("volts:loginSuccess", function(message) {
+
                 notice.textContent = message || "Login realizado com sucesso!";
 
                 setTimeout(function() {
+
                     window.cef.emit("volts:close", {});
+
                 }, 1200);
+
             });
 
+            // CADASTRO REALIZADO
+
             window.cef.on("volts:registerSuccess", function(message) {
+
                 notice.textContent = message || "Cadastro realizado!";
 
                 setTimeout(function() {
+
                     window.cef.emit("volts:close", {});
+
                 }, 1200);
+
             });
+
         }
 
         if (attempts >= 100) {
+
             clearInterval(timer);
+
             console.log("[VOLTS CEF] Comunicação não encontrada.");
+
         }
+
     }, 100);
+
 })();
 
+// ==========================================
 // ENVIAR LOGIN
+// ==========================================
 
 loginForm.addEventListener("submit", function(e) {
+
     e.preventDefault();
 
     const username = document.getElementById("loginName").value.trim();
+
     const password = document.getElementById("loginPassword").value;
 
     if (!window.cef || typeof window.cef.emit !== "function") {
+
         notice.textContent = "Conexão CEF indisponível!";
         return;
+
     }
 
     window.cef.emit("volts:login", {
+
         username: username,
         password: password
+
     });
 
     notice.textContent = "Verificando sua conta...";
+
 });
 
+// ==========================================
 // ENVIAR CADASTRO
+// ==========================================
 
 registerForm.addEventListener("submit", function(e) {
+
     e.preventDefault();
 
     const firstName = document.getElementById("firstName").value.trim();
+
     const lastName = document.getElementById("lastName").value.trim();
+
     const password = document.getElementById("registerPassword").value;
+
     const confirm = document.getElementById("confirmPassword").value;
 
     if (password !== confirm) {
+
         notice.textContent = "As senhas não são iguais!";
         return;
+
     }
 
     if (!window.cef || typeof window.cef.emit !== "function") {
+
         notice.textContent = "Conexão CEF indisponível!";
         return;
+
     }
 
     window.cef.emit("volts:register", {
+
         firstName: firstName,
         lastName: lastName,
         password: password
+
     });
 
     notice.textContent = "Criando sua conta...";
+
 });
 
+// ==========================================
+// INICIAR
+// ==========================================
+
 showLogin();
+
 </script>
 
 </body>
