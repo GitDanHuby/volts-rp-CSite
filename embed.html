@@ -1,1 +1,422 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090a0e">
+
+<title>VOLTS RP • EMBED</title>
+
+<style>
+:root {
+    --red: #e32636;
+    --red-dark: #991b28;
+    --bg: #090a0e;
+    --panel: rgba(13,15,20,.96);
+    --border: rgba(255,255,255,.10);
+    --white: #f5f5f7;
+    --muted: #9298a6;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: transparent !important;
+    pointer-events: none;
+}
+
+.container {
+    position: absolute;
+    top: 50%;
+    right: 25px;
+    width: 340px;
+    max-width: calc(100vw - 35px);
+    transform: translateY(-50%);
+}
+
+.embed {
+    position: relative;
+    width: 100%;
+    padding: 19px;
+    overflow: hidden;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 15px 45px rgba(0,0,0,.65);
+    backdrop-filter: blur(15px);
+
+    opacity: 0;
+    transform: translateX(45px) scale(.96);
+}
+
+.embed.show {
+    animation: enter .4s cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+.embed.hide {
+    animation: leave .35s ease forwards;
+}
+
+@keyframes enter {
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes leave {
+    from {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(45px) scale(.96);
+    }
+}
+
+.embed::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(
+        180deg,
+        #ed3545,
+        #941321
+    );
+    box-shadow: 0 0 15px rgba(227,38,54,.7);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo {
+    width: 37px;
+    height: 37px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    color: white;
+    font-size: 13px;
+    font-weight: 1000;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg,#ed3545,#791321);
+    border-radius: 9px;
+    box-shadow: 0 4px 15px rgba(227,38,54,.25);
+}
+
+.brand-info b {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+}
+
+.brand-info small {
+    display: block;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 8px;
+    letter-spacing: 1.5px;
+}
+
+.badge {
+    padding: 7px 9px;
+    color: #ff8b95;
+    background: rgba(227,38,54,.12);
+    border: 1px solid rgba(227,38,54,.3);
+    border-radius: 6px;
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.badge.private {
+    color: #e2b7ff;
+    background: rgba(165,90,230,.12);
+    border-color: rgba(165,90,230,.35);
+}
+
+.divider {
+    height: 1px;
+    margin-bottom: 15px;
+    background: linear-gradient(
+        90deg,
+        rgba(227,38,54,.5),
+        rgba(255,255,255,.04)
+    );
+}
+
+.title {
+    margin: 0 0 9px;
+    color: var(--white);
+    font-size: 16px;
+    font-weight: 1000;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.message {
+    margin: 0;
+    color: #b5bac5;
+    font-size: 12px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-top: 17px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,.07);
+}
+
+.footer span {
+    color: #777e8b;
+    font-size: 8px;
+    font-weight: bold;
+    letter-spacing: 1.3px;
+}
+
+.footer strong {
+    color: #e84a58;
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+.progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: rgba(255,255,255,.05);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 100%;
+    background: var(--red);
+    transform-origin: left;
+}
+
+.embed.show .progress-bar {
+    animation: countdown var(--duration, 4000ms) linear forwards;
+}
+
+@keyframes countdown {
+    from { transform: scaleX(1); }
+    to { transform: scaleX(0); }
+}
+
+@media(max-width: 420px) {
+    .container {
+        right: 12px;
+        width: 310px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="embed" id="embed">
+
+        <div class="header">
+            <div class="brand">
+                <div class="logo">VR</div>
+
+                <div class="brand-info">
+                    <b>VOLTS RP</b>
+                    <small>ROLEPLAY • COMUNICADOS</small>
+                </div>
+            </div>
+
+            <div class="badge" id="badge">● AVISO PÚBLICO</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h2 class="title" id="title">
+            Bem-vindo ao Volts RP!
+        </h2>
+
+        <p class="message" id="message">
+            Sua história começa agora.
+        </p>
+
+        <div class="footer">
+            <span id="author">CENTRAL VOLTS</span>
+            <strong>VOLTS ROLEPLAY</strong>
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+const embed = document.getElementById("embed");
+const title = document.getElementById("title");
+const message = document.getElementById("message");
+const badge = document.getElementById("badge");
+const author = document.getElementById("author");
+const progressBar = document.getElementById("progressBar");
+
+let queue = [];
+let showing = false;
+let hideTimer = null;
+
+function parseData(data) {
+    if (typeof data === "string") {
+        try {
+            return JSON.parse(data);
+        } catch (e) {
+            return { message: data };
+        }
+    }
+
+    return data || {};
+}
+
+function showEmbed(data) {
+    const item = parseData(data);
+
+    if (typeof item !== "object" || item === null) return;
+
+    queue.push(item);
+
+    if (!showing) {
+        processQueue();
+    }
+}
+
+function processQueue() {
+    if (queue.length === 0) {
+        showing = false;
+        return;
+    }
+
+    showing = true;
+
+    const item = queue.shift();
+
+    const duration = Math.max(
+        1000,
+        Math.min(Number(item.duration) || 4000, 15000)
+    );
+
+    const isPrivate =
+        item.type === "private" ||
+        item.type === "individual" ||
+        item.audience === "private";
+
+    title.textContent = item.title || "Comunicado";
+    message.textContent = item.message || "";
+    author.textContent = item.author || "CENTRAL VOLTS";
+
+    badge.textContent = isPrivate
+        ? "● AVISO INDIVIDUAL"
+        : "● AVISO PÚBLICO";
+
+    badge.classList.toggle("private", isPrivate);
+
+    clearTimeout(hideTimer);
+
+    embed.classList.remove("show", "hide");
+
+    // Reinicia a animação da barra
+    progressBar.style.animation = "none";
+    progressBar.offsetHeight;
+
+    embed.style.setProperty("--duration", duration + "ms");
+
+    embed.classList.add("show");
+
+    progressBar.style.animation = "";
+
+    hideTimer = setTimeout(function() {
+        embed.classList.remove("show");
+        embed.classList.add("hide");
+
+        setTimeout(function() {
+            embed.classList.remove("hide");
+            processQueue();
+        }, 380);
+
+    }, duration);
+}
+
+function hideEmbed() {
+    clearTimeout(hideTimer);
+    queue = [];
+
+    embed.classList.remove("show");
+    embed.classList.add("hide");
+
+    showing = false;
+}
+
+function registerEvents() {
+    if (!window.cef || typeof window.cef.on !== "function") {
+        return false;
+    }
+
+    window.cef.on("volts:embedShow", function(data) {
+        showEmbed(data);
+    });
+
+    window.cef.on("volts:embedHide", function() {
+        hideEmbed();
+    });
+
+    console.log("[VOLTS EMBED] Comunicação CEF conectada.");
+
+    return true;
+}
+
+let attempts = 0;
+
+const bridgeTimer = setInterval(function() {
+    attempts++;
+
+    if (registerEvents() || attempts >= 120) {
+        clearInterval(bridgeTimer);
+    }
+}, 100);
+
+console.log("[VOLTS EMBED] Interface carregada.");
+</script>
+
+</body>
+  </html>
+
