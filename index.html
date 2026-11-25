@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -28,7 +27,7 @@ body {
 
 .container {
     width: 100%;
-    max-width: 400px;
+    max-width: 430px;
 }
 
 .logo {
@@ -61,7 +60,7 @@ body {
 }
 
 .panel {
-    background: rgba(12,12,12,.94);
+    background: rgba(12,12,12,.96);
     border: 1px solid #383838;
     border-radius: 15px;
     padding: 25px;
@@ -92,6 +91,7 @@ body {
 }
 
 h2 {
+    margin-top: 0;
     margin-bottom: 7px;
 }
 
@@ -148,6 +148,18 @@ input:focus {
     opacity: .8;
 }
 
+.secondary-action {
+    width: 100%;
+    padding: 13px;
+    margin-top: 12px;
+    color: #ffcc00;
+    background: transparent;
+    border: 1px solid #665500;
+    border-radius: 7px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 .notice {
     color: #ffcc00;
     font-size: 12px;
@@ -157,10 +169,6 @@ input:focus {
 }
 
 /* CONTAS SALVAS */
-
-.accounts-view h2 {
-    margin-top: 0;
-}
 
 .account-list {
     display: grid;
@@ -204,16 +212,93 @@ input:focus {
     overflow-wrap: anywhere;
 }
 
-.secondary-action {
-    width: 100%;
-    padding: 13px;
-    margin-top: 12px;
-    color: #ffcc00;
-    background: transparent;
-    border: 1px solid #665500;
-    border-radius: 7px;
+/* PERSONAGENS */
+
+.character-list {
+    display: grid;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.character-card {
+    background: #171717;
+    border: 1px solid #414141;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.character-card:active {
+    border-color: #ffcc00;
+}
+
+.character-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.character-avatar {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #ffcc00;
+    color: #111;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.character-name {
+    font-size: 15px;
     font-weight: bold;
+    overflow-wrap: anywhere;
+}
+
+.character-info {
+    color: #999;
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+.character-enter {
+    width: 100%;
+    margin-top: 13px;
+    padding: 11px;
+    color: #111;
+    background: #ffcc00;
+    border: none;
+    border-radius: 6px;
+    font-weight: 900;
     cursor: pointer;
+}
+
+.empty-characters {
+    text-align: center;
+    background: #171717;
+    border: 1px dashed #555;
+    border-radius: 10px;
+    padding: 25px 15px;
+    margin-top: 18px;
+}
+
+.empty-characters .symbol {
+    font-size: 35px;
+    color: #ffcc00;
+}
+
+.empty-characters p {
+    color: #999;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.character-count {
+    color: #999;
+    font-size: 11px;
+    text-align: center;
+    margin-top: 15px;
 }
 
 .footer {
@@ -245,17 +330,12 @@ input:focus {
 <div class="container">
 
     <div class="logo">
-
-        <img
-            src="logo.png"
-            class="logo-img"
-            alt="Logo Volts RP"
-            onerror="this.style.display='none'"
-        >
+        <img src="logo.png" class="logo-img"
+             alt="Logo Volts RP"
+             onerror="this.style.display='none'">
 
         <h1><span>VOLTS</span> RP</h1>
         <p>SUA HISTÓRIA COMEÇA AQUI</p>
-
     </div>
 
     <div class="panel">
@@ -268,114 +348,123 @@ input:focus {
         <!-- CONTAS SALVAS -->
 
         <section id="accountsView" hidden>
-
             <h2>Bem-vindo de volta!</h2>
-
             <p class="subtitle">
                 Escolha uma conta salva neste dispositivo.
             </p>
 
             <div id="accountList" class="account-list"></div>
 
-            <button
-                id="addAccountButton"
-                class="action"
-                type="button"
-            >
+            <button id="addAccountButton" class="action" type="button">
                 ADICIONAR OUTRA CONTA
             </button>
-
         </section>
 
         <!-- LOGIN -->
 
         <form id="loginForm">
-
             <h2>Bem-vindo de volta!</h2>
+            <p class="subtitle">Entre na sua conta para jogar.</p>
 
-            <p class="subtitle">
-                Entre na sua conta para jogar.
-            </p>
-
-            <label>NOME DO PERSONAGEM</label>
-
-            <input
-                id="loginName"
-                placeholder="Ex.: Dan_TK"
-                required
-            >
+            <label>NOME DA CONTA</label>
+            <input id="loginName" placeholder="Ex.: Dan_TK" required>
 
             <label>SENHA</label>
-
-            <input
-                id="loginPassword"
-                type="password"
-                placeholder="Sua senha"
-                required
-            >
+            <input id="loginPassword" type="password"
+                   placeholder="Sua senha" required>
 
             <button class="action" type="submit">
                 ENTRAR NO SERVIDOR
             </button>
-
         </form>
 
         <!-- CADASTRO -->
 
         <form id="registerForm" hidden>
-
             <h2>Crie sua conta</h2>
-
             <p class="subtitle">
-                Cadastre seu personagem no Volts RP.
+                Cadastre sua conta no Volts RP.
             </p>
 
             <div class="row">
-
                 <div>
                     <label>NOME</label>
-                    <input
-                        id="firstName"
-                        placeholder="Nome"
-                        required
-                    >
+                    <input id="firstName" placeholder="Nome" required>
                 </div>
 
                 <div>
                     <label>SOBRENOME</label>
-                    <input
-                        id="lastName"
-                        placeholder="Sobrenome"
-                        required
-                    >
+                    <input id="lastName" placeholder="Sobrenome" required>
                 </div>
-
             </div>
 
             <label>SENHA</label>
-
-            <input
-                id="registerPassword"
-                type="password"
-                minlength="6"
-                placeholder="Mínimo 6 caracteres"
-                required
-            >
+            <input id="registerPassword" type="password"
+                   minlength="6" placeholder="Mínimo 6 caracteres" required>
 
             <label>CONFIRMAR SENHA</label>
-
-            <input
-                id="confirmPassword"
-                type="password"
-                minlength="6"
-                placeholder="Repita sua senha"
-                required
-            >
+            <input id="confirmPassword" type="password"
+                   minlength="6" placeholder="Repita sua senha" required>
 
             <button class="action" type="submit">
                 CRIAR CONTA
             </button>
+        </form>
 
+        <!-- SELEÇÃO DE PERSONAGENS -->
+
+        <section id="charactersView" hidden>
+            <h2>Seus personagens</h2>
+            <p class="subtitle">
+                Escolha quem você deseja ser no Volts RolePlay.
+            </p>
+
+            <div id="characterList" class="character-list"></div>
+
+            <div id="emptyCharacters" class="empty-characters" hidden>
+                <div class="symbol">+</div>
+                <h3>Nenhum personagem</h3>
+                <p>
+                    Você ainda não criou um personagem.
+                    Crie seu primeiro personagem para começar sua história.
+                </p>
+            </div>
+
+            <div id="characterCount" class="character-count">
+                0 de 3 personagens
+            </div>
+
+            <button id="createCharacterButton" class="action" type="button">
+                CRIAR PERSONAGEM
+            </button>
+        </section>
+
+        <!-- CRIAÇÃO DE PERSONAGEM -->
+
+        <form id="createCharacterForm" hidden>
+            <h2>Novo personagem</h2>
+            <p class="subtitle">
+                Escolha o nome do seu personagem.
+            </p>
+
+            <label>NOME</label>
+            <input id="characterFirstName"
+                   placeholder="Ex.: Daniel"
+                   minlength="2" maxlength="20" required>
+
+            <label>SOBRENOME</label>
+            <input id="characterLastName"
+                   placeholder="Ex.: Assis"
+                   minlength="2" maxlength="20" required>
+
+            <button class="action" type="submit">
+                CRIAR PERSONAGEM
+            </button>
+
+            <button id="cancelCharacterButton"
+                    class="secondary-action" type="button">
+                VOLTAR
+            </button>
         </form>
 
         <div class="notice" id="notice"></div>
@@ -389,31 +478,47 @@ input:focus {
 </div>
 
 <script>
-
 const loginTab = document.getElementById("loginTab");
 const registerTab = document.getElementById("registerTab");
 
 const loginForm = document.getElementById("loginForm");
 const registerForm = document.getElementById("registerForm");
-
-const notice = document.getElementById("notice");
+const createCharacterForm = document.getElementById("createCharacterForm");
 
 const accountsView = document.getElementById("accountsView");
-const accountList = document.getElementById("accountList");
+const charactersView = document.getElementById("charactersView");
 
-const addAccountButton = document.getElementById("addAccountButton");
+const accountList = document.getElementById("accountList");
+const characterList = document.getElementById("characterList");
+
+const emptyCharacters = document.getElementById("emptyCharacters");
+const characterCount = document.getElementById("characterCount");
+
+const notice = document.getElementById("notice");
 const tabs = document.querySelector(".tabs");
 
+const addAccountButton = document.getElementById("addAccountButton");
+const createCharacterButton = document.getElementById("createCharacterButton");
+const cancelCharacterButton = document.getElementById("cancelCharacterButton");
+
+let currentCharacterCount = 0;
+
 // ==========================================
-// MOSTRAR LOGIN
+// CONTROLE DAS TELAS
 // ==========================================
+
+function hideAllViews() {
+    accountsView.hidden = true;
+    loginForm.hidden = true;
+    registerForm.hidden = true;
+    charactersView.hidden = true;
+    createCharacterForm.hidden = true;
+}
 
 function showLogin() {
+    hideAllViews();
 
-    accountsView.hidden = true;
     loginForm.hidden = false;
-    registerForm.hidden = true;
-
     tabs.hidden = false;
 
     loginTab.classList.add("active");
@@ -422,16 +527,10 @@ function showLogin() {
     notice.textContent = "";
 }
 
-// ==========================================
-// MOSTRAR CADASTRO
-// ==========================================
-
 function showRegister() {
+    hideAllViews();
 
-    accountsView.hidden = true;
-    loginForm.hidden = true;
     registerForm.hidden = false;
-
     tabs.hidden = false;
 
     registerTab.classList.add("active");
@@ -440,36 +539,25 @@ function showRegister() {
     notice.textContent = "";
 }
 
-// ==========================================
-// MOSTRAR CONTAS SALVAS
-// ==========================================
-
 function showAccounts(usernames) {
-
-    loginForm.hidden = true;
-    registerForm.hidden = true;
+    hideAllViews();
 
     accountsView.hidden = false;
     tabs.hidden = true;
 
     accountList.replaceChildren();
-
     notice.textContent = "";
 
     usernames.slice(0, 3).forEach(function(username) {
-
         const button = document.createElement("button");
-
         button.type = "button";
         button.className = "account-option";
 
         const avatar = document.createElement("span");
-
         avatar.className = "account-avatar";
         avatar.textContent = username.charAt(0).toUpperCase();
 
         const name = document.createElement("span");
-
         name.className = "account-name";
         name.textContent = username;
 
@@ -477,28 +565,154 @@ function showAccounts(usernames) {
         button.appendChild(name);
 
         button.addEventListener("click", function() {
-
-            if (!window.cef || typeof window.cef.emit !== "function") {
-
+            if (!sendCef("volts:deviceLogin", username)) {
                 notice.textContent = "Conexão CEF indisponível!";
                 return;
-
             }
 
-            notice.textContent = "Entrando em " + username + "...";
-
-            window.cef.emit("volts:deviceLogin", username);
-
+            notice.textContent = "Verificando sua conta...";
         });
 
         accountList.appendChild(button);
-
     });
-
 }
 
 // ==========================================
-// ABRIR TELAS
+// SELEÇÃO DE PERSONAGENS
+// ==========================================
+
+function showCharacters(data) {
+    hideAllViews();
+
+    charactersView.hidden = false;
+    tabs.hidden = true;
+
+    characterList.replaceChildren();
+    notice.textContent = "";
+
+    const value = String(data || "").trim();
+
+    if (!value || value === "-") {
+        currentCharacterCount = 0;
+        emptyCharacters.hidden = false;
+        characterCount.textContent = "0 de 3 personagens";
+        createCharacterButton.hidden = false;
+        return;
+    }
+
+    const characters = value.split("|")
+        .map(function(entry) {
+            const parts = entry.split("~");
+
+            if (parts.length !== 5) return null;
+
+            return {
+                id: Number(parts[0]),
+                firstName: parts[1],
+                lastName: parts[2],
+                skin: Number(parts[3]),
+                money: Number(parts[4])
+            };
+        })
+        .filter(function(character) {
+            return character &&
+                Number.isInteger(character.id) &&
+                character.id > 0;
+        });
+
+    currentCharacterCount = characters.length;
+
+    emptyCharacters.hidden = characters.length !== 0;
+    characterCount.textContent =
+        characters.length + " de 3 personagens";
+
+    createCharacterButton.hidden = characters.length >= 3;
+
+    characters.forEach(function(character) {
+        const card = document.createElement("div");
+        card.className = "character-card";
+
+        const top = document.createElement("div");
+        top.className = "character-top";
+
+        const avatar = document.createElement("div");
+        avatar.className = "character-avatar";
+        avatar.textContent =
+            character.firstName.charAt(0).toUpperCase();
+
+        const information = document.createElement("div");
+
+        const name = document.createElement("div");
+        name.className = "character-name";
+        name.textContent =
+            character.firstName + " " + character.lastName;
+
+        const details = document.createElement("div");
+        details.className = "character-info";
+        details.textContent =
+            "ID: " + character.id +
+            " • Skin: " + character.skin +
+            " • Dinheiro: $" + character.money.toLocaleString("pt-BR");
+
+        information.appendChild(name);
+        information.appendChild(details);
+
+        top.appendChild(avatar);
+        top.appendChild(information);
+
+        const enterButton = document.createElement("button");
+        enterButton.type = "button";
+        enterButton.className = "character-enter";
+        enterButton.textContent = "ENTRAR COM PERSONAGEM";
+
+        enterButton.addEventListener("click", function() {
+            enterButton.disabled = true;
+            enterButton.textContent = "CARREGANDO...";
+
+            if (!sendCef("volts:selectCharacter", String(character.id))) {
+                enterButton.disabled = false;
+                enterButton.textContent = "ENTRAR COM PERSONAGEM";
+                notice.textContent = "Conexão CEF indisponível!";
+            }
+        });
+
+        card.appendChild(top);
+        card.appendChild(enterButton);
+
+        characterList.appendChild(card);
+    });
+}
+
+// ==========================================
+// CRIAR PERSONAGEM
+// ==========================================
+
+function showCreateCharacter() {
+    hideAllViews();
+
+    createCharacterForm.hidden = false;
+    tabs.hidden = true;
+
+    notice.textContent = "";
+}
+
+createCharacterButton.addEventListener("click", function() {
+    if (currentCharacterCount >= 3) {
+        notice.textContent = "Você já possui 3 personagens!";
+        return;
+    }
+
+    showCreateCharacter();
+});
+
+cancelCharacterButton.addEventListener("click", function() {
+    charactersView.hidden = false;
+    createCharacterForm.hidden = true;
+    notice.textContent = "";
+});
+
+// ==========================================
+// ABRIR TELAS DE LOGIN E CADASTRO
 // ==========================================
 
 loginTab.addEventListener("click", showLogin);
@@ -507,32 +721,34 @@ registerTab.addEventListener("click", showRegister);
 addAccountButton.addEventListener("click", showLogin);
 
 // ==========================================
-// COMUNICACAO COM O SERVIDOR
+// COMUNICACAO CEF
 // ==========================================
 
-(function waitForVoltsCef() {
+function sendCef(event, data) {
+    if (!window.cef || typeof window.cef.emit !== "function") {
+        return false;
+    }
 
+    window.cef.emit(event, data);
+    return true;
+}
+
+(function waitForVoltsCef() {
     let attempts = 0;
 
     const timer = setInterval(function() {
-
         attempts++;
 
         if (window.cef && typeof window.cef.on === "function") {
-
             clearInterval(timer);
 
-            // RECEBER CONTAS SALVAS
-
+            // CONTAS SALVAS
             window.cef.on("volts:accounts", function(data) {
-
                 const value = String(data || "").trim();
 
                 if (!value || value === "-") {
-
                     showLogin();
                     return;
-
                 }
 
                 const usernames = value.split("|")
@@ -545,73 +761,65 @@ addAccountButton.addEventListener("click", showLogin);
                     .slice(0, 3);
 
                 if (usernames.length > 0) {
-
                     showAccounts(usernames);
-
                 } else {
-
                     showLogin();
-
                 }
-
             });
 
-            // ERRO DE LOGIN
-
+            // ERROS DE LOGIN
             window.cef.on("volts:loginError", function(message) {
-
                 notice.textContent = message || "Falha no login!";
-
             });
 
-            // ERRO DE CADASTRO
-
+            // ERROS DE CADASTRO
             window.cef.on("volts:registerError", function(message) {
-
                 notice.textContent = message || "Falha no cadastro!";
-
             });
 
-            // LOGIN REALIZADO
+            // ERROS DE PERSONAGEM
+            window.cef.on("volts:characterError", function(message) {
+                notice.textContent = message || "Erro com personagem!";
+            });
 
-            window.cef.on("volts:loginSuccess", function(message) {
+            // LISTA DE PERSONAGENS
+            window.cef.on("volts:characters", function(data) {
+                showCharacters(data);
+            });
 
-                notice.textContent = message || "Login realizado com sucesso!";
+            // PERSONAGEM CRIADO
+            window.cef.on("volts:characterCreated", function(message) {
+                notice.textContent =
+                    message || "Personagem criado com sucesso!";
+            });
+
+            // PERSONAGEM SELECIONADO
+            window.cef.on("volts:characterSelected", function(message) {
+                notice.textContent =
+                    message || "Personagem carregado!";
 
                 setTimeout(function() {
-
-                    window.cef.emit("volts:close", {});
-
-                }, 1200);
-
+                    sendCef("volts:close", {});
+                }, 900);
             });
 
-            // CADASTRO REALIZADO
+            // COMPATIBILIDADE COM EVENTOS ANTIGOS
+            window.cef.on("volts:loginSuccess", function(message) {
+                notice.textContent = message || "Login realizado!";
+            });
 
             window.cef.on("volts:registerSuccess", function(message) {
-
                 notice.textContent = message || "Cadastro realizado!";
-
-                setTimeout(function() {
-
-                    window.cef.emit("volts:close", {});
-
-                }, 1200);
-
             });
 
+            console.log("[VOLTS CEF] Eventos registrados.");
         }
 
         if (attempts >= 100) {
-
             clearInterval(timer);
-
             console.log("[VOLTS CEF] Comunicação não encontrada.");
-
         }
-
     }, 100);
-
 })();
 
 // ==========================================
@@ -619,29 +827,23 @@ addAccountButton.addEventListener("click", showLogin);
 // ==========================================
 
 loginForm.addEventListener("submit", function(e) {
-
     e.preventDefault();
 
-    const username = document.getElementById("loginName").value.trim();
+    const username =
+        document.getElementById("loginName").value.trim();
 
-    const password = document.getElementById("loginPassword").value;
+    const password =
+        document.getElementById("loginPassword").value;
 
-    if (!window.cef || typeof window.cef.emit !== "function") {
-
-        notice.textContent = "Conexão CEF indisponível!";
-        return;
-
-    }
-
-    window.cef.emit("volts:login", {
-
+    if (!sendCef("volts:login", {
         username: username,
         password: password
-
-    });
+    })) {
+        notice.textContent = "Conexão CEF indisponível!";
+        return;
+    }
 
     notice.textContent = "Verificando sua conta...";
-
 });
 
 // ==========================================
@@ -649,41 +851,63 @@ loginForm.addEventListener("submit", function(e) {
 // ==========================================
 
 registerForm.addEventListener("submit", function(e) {
-
     e.preventDefault();
 
-    const firstName = document.getElementById("firstName").value.trim();
+    const firstName =
+        document.getElementById("firstName").value.trim();
 
-    const lastName = document.getElementById("lastName").value.trim();
+    const lastName =
+        document.getElementById("lastName").value.trim();
 
-    const password = document.getElementById("registerPassword").value;
-
-    const confirm = document.getElementById("confirmPassword").value;
+    const password =
+        document.getElementById("registerPassword").value;
+    const confirm =
+        document.getElementById("confirmPassword").value;
 
     if (password !== confirm) {
-
         notice.textContent = "As senhas não são iguais!";
         return;
-
     }
 
-    if (!window.cef || typeof window.cef.emit !== "function") {
-
-        notice.textContent = "Conexão CEF indisponível!";
-        return;
-
-    }
-
-    window.cef.emit("volts:register", {
-
+    if (!sendCef("volts:register", {
         firstName: firstName,
         lastName: lastName,
         password: password
-
-    });
+    })) {
+        notice.textContent = "Conexão CEF indisponível!";
+        return;
+    }
 
     notice.textContent = "Criando sua conta...";
+});
+    // ==========================================
+// ENVIAR CRIACAO DE PERSONAGEM
+// ==========================================
 
+createCharacterForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const firstName =
+        document.getElementById("characterFirstName").value.trim();
+
+    const lastName =
+        document.getElementById("characterLastName").value.trim();
+
+    if (firstName.length < 2 || firstName.length > 20 ||
+        lastName.length < 2 || lastName.length > 20) {
+        notice.textContent =
+            "Nome e sobrenome precisam ter de 2 a 20 caracteres.";
+        return;
+    }
+    if (!sendCef("volts:createCharacter", {
+        firstName: firstName,
+        lastName: lastName
+    })) {
+        notice.textContent = "Conexão CEF indisponível!";
+        return;
+    }
+
+    notice.textContent = "Criando personagem...";
 });
 
 // ==========================================
