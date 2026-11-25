@@ -3,9 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Volts RolePlay</title>
+<meta name="theme-color" content="#090909">
+<title>VOLTS ROLEPLAY</title>
 
 <style>
+:root {
+    --red: #e32636;
+    --red-dark: #991b28;
+    --bg: #08090c;
+    --panel: rgba(13,15,20,.94);
+    --border: rgba(255,255,255,.09);
+    --muted: #858995;
+    --white: #f5f5f7;
+}
+
 * {
     box-sizing: border-box;
     font-family: Arial, sans-serif;
@@ -14,20 +25,40 @@
 body {
     margin: 0;
     min-height: 100vh;
+    min-height: 100dvh;
+    color: var(--white);
     background:
-        linear-gradient(rgba(0,0,0,.78), rgba(0,0,0,.88)),
-        url("fundo.jpg") center center / cover no-repeat fixed,
-        linear-gradient(135deg, #050505, #171717);
-    color: white;
+        linear-gradient(110deg, rgba(5,6,9,.92), rgba(5,6,9,.68)),
+        linear-gradient(0deg, rgba(8,9,12,.8), transparent),
+        url("fundo.jpg") center/cover no-repeat fixed,
+        var(--bg);
     display: flex;
-    justify-content: center;
     align-items: center;
-    padding: 20px;
+    justify-content: center;
+    padding: 24px 16px;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(227,38,54,.13), transparent 35%),
+        radial-gradient(circle at 85% 80%, rgba(227,38,54,.10), transparent 35%);
 }
 
 .container {
+    position: relative;
     width: 100%;
-    max-width: 430px;
+    max-width: 480px;
+    animation: appear .6s ease;
+}
+
+@keyframes appear {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .logo {
@@ -36,95 +67,150 @@ body {
 }
 
 .logo-img {
-    display: block;
-    width: 150px;
-    height: 110px;
+    width: 130px;
+    height: 95px;
     object-fit: contain;
-    margin: 0 auto 10px;
+    display: block;
+    margin: 0 auto 8px;
+    filter: drop-shadow(0 0 18px rgba(227,38,54,.3));
 }
 
 .logo h1 {
-    font-size: 34px;
-    letter-spacing: 4px;
+    font-size: 37px;
+    font-weight: 1000;
+    letter-spacing: 5px;
     margin: 0;
+    text-shadow: 0 5px 25px #000;
 }
 
 .logo h1 span {
-    color: #ffcc00;
+    color: var(--red);
 }
 
 .logo p {
-    color: #aaa;
-    font-size: 11px;
-    letter-spacing: 3px;
+    color: #a3a5ad;
+    font-size: 10px;
+    letter-spacing: 4px;
+    margin-top: 9px;
 }
 
 .panel {
-    background: rgba(12,12,12,.96);
-    border: 1px solid #383838;
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: 0 0 35px rgba(0,0,0,.8);
-    backdrop-filter: blur(8px);
+    position: relative;
+    overflow: hidden;
+    padding: 30px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    box-shadow: 0 25px 80px rgba(0,0,0,.65);
+    backdrop-filter: blur(18px);
+}
+
+.panel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 8%;
+    width: 84%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+    box-shadow: 0 0 20px rgba(227,38,54,.6);
+}
+
+.panel::after {
+    content: "";
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    right: -100px;
+    top: -100px;
+    border-radius: 50%;
+    background: rgba(227,38,54,.10);
+    filter: blur(30px);
+    pointer-events: none;
 }
 
 .tabs {
     display: flex;
-    gap: 10px;
-    margin-bottom: 25px;
+    gap: 8px;
+    padding: 5px;
+    background: rgba(255,255,255,.035);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 27px;
 }
 
 .tabs button {
     flex: 1;
-    padding: 13px;
-    background: #222;
-    border: 1px solid #333;
-    color: white;
+    border: 0;
     border-radius: 7px;
-    font-weight: bold;
+    padding: 13px 8px;
+    background: transparent;
+    color: #8c909a;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: .2s;
 }
 
 .tabs button.active {
-    background: #ffcc00;
-    color: black;
-    border-color: #ffcc00;
+    background: linear-gradient(135deg, #ed3545, #a91929);
+    color: white;
+    box-shadow: 0 5px 18px rgba(227,38,54,.25);
 }
 
 h2 {
-    margin-top: 0;
-    margin-bottom: 7px;
+    font-size: 23px;
+    margin: 0 0 8px;
+    letter-spacing: -.5px;
+}
+
+h2::first-letter {
+    color: var(--red);
 }
 
 .subtitle {
-    color: #999;
-    font-size: 13px;
-    margin-bottom: 22px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.6;
+    margin: 0 0 23px;
 }
 
 label {
     display: block;
-    margin: 15px 0 7px;
-    font-size: 12px;
-    font-weight: bold;
+    margin: 17px 0 8px;
+    color: #c6c8ce;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
 }
 
 input {
     width: 100%;
-    padding: 14px;
-    background: #080808;
-    border: 1px solid #383838;
-    border-radius: 7px;
+    height: 49px;
+    padding: 0 15px;
     color: white;
+    background: rgba(255,255,255,.045);
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 8px;
     outline: none;
+    font-size: 13px;
+    transition: .2s;
+}
+
+input::placeholder {
+    color: #656a75;
 }
 
 input:focus {
-    border-color: #ffcc00;
+    border-color: var(--red);
+    background: rgba(227,38,54,.045);
+    box-shadow: 0 0 0 3px rgba(227,38,54,.10);
 }
 
 .row {
     display: flex;
-    gap: 10px;
+    gap: 12px;
 }
 
 .row div {
@@ -132,82 +218,104 @@ input:focus {
 }
 
 .action {
+    position: relative;
     width: 100%;
-    padding: 15px;
+    min-height: 49px;
     margin-top: 23px;
-    background: #ffcc00;
-    color: #111;
-    border: none;
-    border-radius: 7px;
-    font-weight: 900;
-    letter-spacing: 1px;
+    padding: 14px;
+    overflow: hidden;
+    color: white;
+    background: linear-gradient(135deg, #ed3545, #a91929);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 1000;
+    letter-spacing: 1.5px;
     cursor: pointer;
+    box-shadow: 0 7px 22px rgba(227,38,54,.20);
+    transition: .2s;
 }
 
 .action:active {
-    opacity: .8;
+    transform: scale(.98);
+    filter: brightness(.85);
+}
+
+.action:disabled {
+    opacity: .55;
+    cursor: wait;
 }
 
 .secondary-action {
     width: 100%;
     padding: 13px;
-    margin-top: 12px;
-    color: #ffcc00;
-    background: transparent;
-    border: 1px solid #665500;
-    border-radius: 7px;
-    font-weight: bold;
+    margin-top: 11px;
+    color: #d7d8dc;
+    background: rgba(255,255,255,.035);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1px;
     cursor: pointer;
 }
 
+.secondary-action:active {
+    background: rgba(255,255,255,.09);
+}
+
 .notice {
-    color: #ffcc00;
-    font-size: 12px;
+    color: #ff6572;
+    font-size: 11px;
     text-align: center;
-    margin-top: 15px;
+    margin-top: 17px;
     min-height: 16px;
+    line-height: 1.5;
 }
 
 /* CONTAS SALVAS */
 
 .account-list {
     display: grid;
-    gap: 10px;
-    margin-top: 18px;
+    gap: 11px;
+    margin-top: 20px;
 }
 
 .account-option {
-    width: 100%;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 13px;
+    width: 100%;
     padding: 14px;
     color: white;
     text-align: left;
-    background: #171717;
-    border: 1px solid #444;
-    border-radius: 8px;
+    background: rgba(255,255,255,.035);
+    border: 1px solid var(--border);
+    border-radius: 10px;
     cursor: pointer;
+    transition: .2s;
 }
 
 .account-option:active {
-    border-color: #ffcc00;
-    background: #242424;
+    border-color: var(--red);
+    background: rgba(227,38,54,.08);
 }
 
 .account-avatar {
-    width: 38px;
-    height: 38px;
+    width: 43px;
+    height: 43px;
     display: grid;
     place-items: center;
     flex-shrink: 0;
-    color: #111;
-    background: #ffcc00;
-    border-radius: 50%;
+    color: white;
+    background: linear-gradient(135deg, #ed3545, #8d1422);
+    border-radius: 10px;
+    font-size: 17px;
     font-weight: 900;
 }
 
 .account-name {
+    font-size: 13px;
     font-weight: bold;
     overflow-wrap: anywhere;
 }
@@ -216,110 +324,169 @@ input:focus {
 
 .character-list {
     display: grid;
-    gap: 12px;
-    margin-top: 18px;
+    gap: 13px;
+    margin-top: 20px;
 }
 
 .character-card {
-    background: #171717;
-    border: 1px solid #414141;
-    border-radius: 10px;
-    padding: 15px;
+    position: relative;
+    padding: 17px;
+    overflow: hidden;
+    background: linear-gradient(115deg, rgba(255,255,255,.065), rgba(255,255,255,.018));
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: .2s;
+}
+
+.character-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--red);
+    opacity: .8;
 }
 
 .character-card:active {
-    border-color: #ffcc00;
+    border-color: rgba(227,38,54,.7);
 }
 
 .character-top {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 13px;
 }
 
 .character-avatar {
-    width: 48px;
-    height: 48px;
+    width: 55px;
+    height: 55px;
     display: grid;
     place-items: center;
     flex-shrink: 0;
-    border-radius: 10px;
-    background: #ffcc00;
-    color: #111;
-    font-size: 20px;
-    font-weight: 900;
+    border-radius: 11px;
+    background: linear-gradient(135deg, #ed3545, #78121f);
+    color: white;
+    font-size: 22px;
+    font-weight: 1000;
+    box-shadow: 0 5px 18px rgba(227,38,54,.2);
 }
 
 .character-name {
     font-size: 15px;
-    font-weight: bold;
+    font-weight: 900;
     overflow-wrap: anywhere;
 }
 
 .character-info {
-    color: #999;
-    font-size: 11px;
-    margin-top: 5px;
+    color: #999eaa;
+    font-size: 10px;
+    margin-top: 7px;
+    line-height: 1.6;
 }
 
 .character-enter {
     width: 100%;
-    margin-top: 13px;
+    margin-top: 15px;
+    min-height: 42px;
     padding: 11px;
-    color: #111;
-    background: #ffcc00;
-    border: none;
-    border-radius: 6px;
-    font-weight: 900;
+    color: white;
+    background: rgba(227,38,54,.12);
+    border: 1px solid rgba(227,38,54,.45);
+    border-radius: 7px;
+    font-size: 10px;
+    font-weight: 1000;
+    letter-spacing: 1px;
     cursor: pointer;
+    transition: .2s;
+}
+
+.character-enter:active {
+    background: var(--red);
+}
+
+.character-enter:disabled {
+    opacity: .5;
 }
 
 .empty-characters {
     text-align: center;
-    background: #171717;
-    border: 1px dashed #555;
-    border-radius: 10px;
-    padding: 25px 15px;
+    background: rgba(255,255,255,.025);
+    border: 1px dashed rgba(255,255,255,.17);
+    border-radius: 12px;
+    padding: 27px 15px;
     margin-top: 18px;
 }
 
 .empty-characters .symbol {
-    font-size: 35px;
-    color: #ffcc00;
+    width: 55px;
+    height: 55px;
+    display: grid;
+    place-items: center;
+    margin: 0 auto 15px;
+    color: white;
+    background: rgba(227,38,54,.15);
+    border: 1px solid rgba(227,38,54,.4);
+    border-radius: 14px;
+    font-size: 30px;
+}
+
+.empty-characters h3 {
+    font-size: 15px;
+    margin: 0 0 8px;
 }
 
 .empty-characters p {
-    color: #999;
-    font-size: 12px;
-    line-height: 1.5;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.7;
 }
 
 .character-count {
-    color: #999;
-    font-size: 11px;
+    color: #8e929c;
+    font-size: 10px;
     text-align: center;
-    margin-top: 15px;
+    margin-top: 17px;
+    letter-spacing: 1px;
 }
 
 .footer {
     text-align: center;
-    color: #aaa;
-    font-size: 10px;
-    margin-top: 22px;
+    color: #858995;
+    font-size: 9px;
+    margin-top: 23px;
     letter-spacing: 2px;
+}
+
+.footer span {
+    color: var(--red);
 }
 
 [hidden] {
     display: none !important;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 420px) {
+    body {
+        padding: 18px 12px;
+    }
+
     .panel {
-        padding: 20px;
+        padding: 22px 18px;
     }
 
     .logo-img {
-        height: 90px;
+        height: 78px;
+        width: 115px;
+    }
+
+    .logo h1 {
+        font-size: 32px;
+    }
+
+    h2 {
+        font-size: 21px;
     }
 }
 </style>
@@ -335,7 +502,7 @@ input:focus {
              onerror="this.style.display='none'">
 
         <h1><span>VOLTS</span> RP</h1>
-        <p>SUA HISTÓRIA COMEÇA AQUI</p>
+        <p>SUA HISTÓRIA. SUAS ESCOLHAS.</p>
     </div>
 
     <div class="panel">
@@ -349,9 +516,7 @@ input:focus {
 
         <section id="accountsView" hidden>
             <h2>Bem-vindo de volta!</h2>
-            <p class="subtitle">
-                Escolha uma conta salva neste dispositivo.
-            </p>
+            <p class="subtitle">Escolha uma conta salva neste dispositivo.</p>
 
             <div id="accountList" class="account-list"></div>
 
@@ -363,15 +528,15 @@ input:focus {
         <!-- LOGIN -->
 
         <form id="loginForm">
-            <h2>Bem-vindo de volta!</h2>
-            <p class="subtitle">Entre na sua conta para jogar.</p>
+            <h2>Acesse sua conta</h2>
+            <p class="subtitle">Entre no Volts RolePlay e continue sua história.</p>
 
             <label>NOME DA CONTA</label>
             <input id="loginName" placeholder="Ex.: Dan_TK" required>
 
             <label>SENHA</label>
             <input id="loginPassword" type="password"
-                   placeholder="Sua senha" required>
+                   placeholder="Digite sua senha" required>
 
             <button class="action" type="submit">
                 ENTRAR NO SERVIDOR
@@ -382,9 +547,7 @@ input:focus {
 
         <form id="registerForm" hidden>
             <h2>Crie sua conta</h2>
-            <p class="subtitle">
-                Cadastre sua conta no Volts RP.
-            </p>
+            <p class="subtitle">Prepare-se para começar sua jornada.</p>
 
             <div class="row">
                 <div>
@@ -407,35 +570,33 @@ input:focus {
                    minlength="6" placeholder="Repita sua senha" required>
 
             <button class="action" type="submit">
-                CRIAR CONTA
+                CRIAR MINHA CONTA
             </button>
         </form>
 
         <!-- SELEÇÃO DE PERSONAGENS -->
 
         <section id="charactersView" hidden>
-            <h2>Seus personagens</h2>
-            <p class="subtitle">
-                Escolha quem você deseja ser no Volts RolePlay.
-            </p>
+            <h2>Selecione seu personagem</h2>
+            <p class="subtitle">Sua próxima história começa com uma escolha.</p>
 
             <div id="characterList" class="character-list"></div>
 
             <div id="emptyCharacters" class="empty-characters" hidden>
                 <div class="symbol">+</div>
-                <h3>Nenhum personagem</h3>
+                <h3>Nenhum personagem encontrado</h3>
                 <p>
-                    Você ainda não criou um personagem.
-                    Crie seu primeiro personagem para começar sua história.
+                    Você ainda não possui personagens.
+                    Crie seu primeiro personagem e comece sua jornada.
                 </p>
             </div>
 
             <div id="characterCount" class="character-count">
-                0 de 3 personagens
+                0 DE 3 PERSONAGENS
             </div>
 
             <button id="createCharacterButton" class="action" type="button">
-                CRIAR PERSONAGEM
+                + CRIAR PERSONAGEM
             </button>
         </section>
 
@@ -443,9 +604,7 @@ input:focus {
 
         <form id="createCharacterForm" hidden>
             <h2>Novo personagem</h2>
-            <p class="subtitle">
-                Escolha o nome do seu personagem.
-            </p>
+            <p class="subtitle">Defina a identidade do seu personagem.</p>
 
             <label>NOME</label>
             <input id="characterFirstName"
@@ -458,12 +617,12 @@ input:focus {
                    minlength="2" maxlength="20" required>
 
             <button class="action" type="submit">
-                CRIAR PERSONAGEM
+                CONFIRMAR PERSONAGEM
             </button>
 
             <button id="cancelCharacterButton"
                     class="secondary-action" type="button">
-                VOLTAR
+                VOLTAR PARA PERSONAGENS
             </button>
         </form>
 
@@ -472,7 +631,7 @@ input:focus {
     </div>
 
     <div class="footer">
-        VOLTS ROLEPLAY • CONECTE-SE E VIVA SUA HISTÓRIA
+        <span>VOLTS ROLEPLAY</span> • CONECTE-SE E VIVA SUA HISTÓRIA
     </div>
 
 </div>
@@ -503,9 +662,7 @@ const cancelCharacterButton = document.getElementById("cancelCharacterButton");
 
 let currentCharacterCount = 0;
 
-// ==========================================
 // CONTROLE DAS TELAS
-// ==========================================
 
 function hideAllViews() {
     accountsView.hidden = true;
@@ -517,34 +674,26 @@ function hideAllViews() {
 
 function showLogin() {
     hideAllViews();
-
     loginForm.hidden = false;
     tabs.hidden = false;
-
     loginTab.classList.add("active");
     registerTab.classList.remove("active");
-
     notice.textContent = "";
 }
 
 function showRegister() {
     hideAllViews();
-
     registerForm.hidden = false;
     tabs.hidden = false;
-
     registerTab.classList.add("active");
     loginTab.classList.remove("active");
-
     notice.textContent = "";
 }
 
 function showAccounts(usernames) {
     hideAllViews();
-
     accountsView.hidden = false;
     tabs.hidden = true;
-
     accountList.replaceChildren();
     notice.textContent = "";
 
@@ -569,7 +718,6 @@ function showAccounts(usernames) {
                 notice.textContent = "Conexão CEF indisponível!";
                 return;
             }
-
             notice.textContent = "Verificando sua conta...";
         });
 
@@ -577,16 +725,12 @@ function showAccounts(usernames) {
     });
 }
 
-// ==========================================
 // SELEÇÃO DE PERSONAGENS
-// ==========================================
 
 function showCharacters(data) {
     hideAllViews();
-
     charactersView.hidden = false;
     tabs.hidden = true;
-
     characterList.replaceChildren();
     notice.textContent = "";
 
@@ -595,7 +739,7 @@ function showCharacters(data) {
     if (!value || value === "-") {
         currentCharacterCount = 0;
         emptyCharacters.hidden = false;
-        characterCount.textContent = "0 de 3 personagens";
+        characterCount.textContent = "0 DE 3 PERSONAGENS";
         createCharacterButton.hidden = false;
         return;
     }
@@ -624,7 +768,7 @@ function showCharacters(data) {
 
     emptyCharacters.hidden = characters.length !== 0;
     characterCount.textContent =
-        characters.length + " de 3 personagens";
+        characters.length + " DE 3 PERSONAGENS";
 
     createCharacterButton.hidden = characters.length >= 3;
 
@@ -651,8 +795,8 @@ function showCharacters(data) {
         details.className = "character-info";
         details.textContent =
             "ID: " + character.id +
-            " • Skin: " + character.skin +
-            " • Dinheiro: $" + character.money.toLocaleString("pt-BR");
+            " • SKIN: " + character.skin +
+            " • DINHEIRO: $" + character.money.toLocaleString("pt-BR");
 
         information.appendChild(name);
         information.appendChild(details);
@@ -678,21 +822,16 @@ function showCharacters(data) {
 
         card.appendChild(top);
         card.appendChild(enterButton);
-
         characterList.appendChild(card);
     });
 }
 
-// ==========================================
 // CRIAR PERSONAGEM
-// ==========================================
 
 function showCreateCharacter() {
     hideAllViews();
-
     createCharacterForm.hidden = false;
     tabs.hidden = true;
-
     notice.textContent = "";
 }
 
@@ -701,7 +840,6 @@ createCharacterButton.addEventListener("click", function() {
         notice.textContent = "Você já possui 3 personagens!";
         return;
     }
-
     showCreateCharacter();
 });
 
@@ -711,18 +849,13 @@ cancelCharacterButton.addEventListener("click", function() {
     notice.textContent = "";
 });
 
-// ==========================================
-// ABRIR TELAS DE LOGIN E CADASTRO
-// ==========================================
+// LOGIN E CADASTRO
 
 loginTab.addEventListener("click", showLogin);
 registerTab.addEventListener("click", showRegister);
-
 addAccountButton.addEventListener("click", showLogin);
 
-// ==========================================
 // COMUNICACAO CEF
-// ==========================================
 
 function sendCef(event, data) {
     if (!window.cef || typeof window.cef.emit !== "function") {
@@ -738,11 +871,9 @@ function sendCef(event, data) {
 
     const timer = setInterval(function() {
         attempts++;
-
         if (window.cef && typeof window.cef.on === "function") {
             clearInterval(timer);
 
-            // CONTAS SALVAS
             window.cef.on("volts:accounts", function(data) {
                 const value = String(data || "").trim();
 
@@ -758,7 +889,7 @@ function sendCef(event, data) {
                     .filter(function(name) {
                         return name.length > 0;
                     })
-                    .slice(0, 3);
+                 .slice(0, 3);
 
                 if (usernames.length > 0) {
                     showAccounts(usernames);
@@ -767,43 +898,35 @@ function sendCef(event, data) {
                 }
             });
 
-            // ERROS DE LOGIN
             window.cef.on("volts:loginError", function(message) {
                 notice.textContent = message || "Falha no login!";
             });
 
-            // ERROS DE CADASTRO
             window.cef.on("volts:registerError", function(message) {
                 notice.textContent = message || "Falha no cadastro!";
             });
-
-            // ERROS DE PERSONAGEM
             window.cef.on("volts:characterError", function(message) {
                 notice.textContent = message || "Erro com personagem!";
             });
 
-            // LISTA DE PERSONAGENS
             window.cef.on("volts:characters", function(data) {
                 showCharacters(data);
             });
 
-            // PERSONAGEM CRIADO
             window.cef.on("volts:characterCreated", function(message) {
                 notice.textContent =
                     message || "Personagem criado com sucesso!";
             });
 
-            // PERSONAGEM SELECIONADO
             window.cef.on("volts:characterSelected", function(message) {
                 notice.textContent =
                     message || "Personagem carregado!";
 
-                setTimeout(function() {
+                          setTimeout(function() {
                     sendCef("volts:close", {});
                 }, 900);
             });
 
-            // COMPATIBILIDADE COM EVENTOS ANTIGOS
             window.cef.on("volts:loginSuccess", function(message) {
                 notice.textContent = message || "Login realizado!";
             });
@@ -819,12 +942,10 @@ function sendCef(event, data) {
             clearInterval(timer);
             console.log("[VOLTS CEF] Comunicação não encontrada.");
         }
-    }, 100);
+        }, 100);
 })();
 
-// ==========================================
 // ENVIAR LOGIN
-// ==========================================
 
 loginForm.addEventListener("submit", function(e) {
     e.preventDefault();
@@ -845,10 +966,7 @@ loginForm.addEventListener("submit", function(e) {
 
     notice.textContent = "Verificando sua conta...";
 });
-
-// ==========================================
-// ENVIAR CADASTRO
-// ==========================================
+    // ENVIAR CADASTRO
 
 registerForm.addEventListener("submit", function(e) {
     e.preventDefault();
@@ -861,6 +979,7 @@ registerForm.addEventListener("submit", function(e) {
 
     const password =
         document.getElementById("registerPassword").value;
+
     const confirm =
         document.getElementById("confirmPassword").value;
 
@@ -868,7 +987,6 @@ registerForm.addEventListener("submit", function(e) {
         notice.textContent = "As senhas não são iguais!";
         return;
     }
-
     if (!sendCef("volts:register", {
         firstName: firstName,
         lastName: lastName,
@@ -880,9 +998,8 @@ registerForm.addEventListener("submit", function(e) {
 
     notice.textContent = "Criando sua conta...";
 });
-    // ==========================================
+
 // ENVIAR CRIACAO DE PERSONAGEM
-// ==========================================
 
 createCharacterForm.addEventListener("submit", function(e) {
     e.preventDefault();
@@ -893,12 +1010,14 @@ createCharacterForm.addEventListener("submit", function(e) {
     const lastName =
         document.getElementById("characterLastName").value.trim();
 
-    if (firstName.length < 2 || firstName.length > 20 ||
+    if (firstName.length < 2 ||
+        firstName.length > 20 ||
         lastName.length < 2 || lastName.length > 20) {
         notice.textContent =
             "Nome e sobrenome precisam ter de 2 a 20 caracteres.";
         return;
     }
+
     if (!sendCef("volts:createCharacter", {
         firstName: firstName,
         lastName: lastName
@@ -910,12 +1029,9 @@ createCharacterForm.addEventListener("submit", function(e) {
     notice.textContent = "Criando personagem...";
 });
 
-// ==========================================
 // INICIAR
-// ==========================================
 
 showLogin();
-
 </script>
 
 </body>
