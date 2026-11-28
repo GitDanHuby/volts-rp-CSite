@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090909">
+<title>Loja | Volts RolePlay</title>
+
+<style>
+:root {
+    --red: #e32636;
+    --red-dark: #9e1421;
+    --bg: #090909;
+    --panel: #141414;
+    --panel2: #1b1b1b;
+    --text: #f5f5f5;
+    --muted: #929292;
+    --border: rgba(255,255,255,.08);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(ellipse at 50% -20%, rgba(227,38,54,.18), transparent 55%),
+        var(--bg);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.app {
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+    padding: 22px 20px 35px;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-mark {
+    width: 43px;
+    height: 43px;
+    border-radius: 12px;
+    background: linear-gradient(145deg, #f33b4b, #9e1421);
+    display: grid;
+    place-items: center;
+    font-weight: 900;
+    font-size: 23px;
+    box-shadow: 0 5px 22px rgba(227,38,54,.25);
+}
+
+.brand-name {
+    font-size: 17px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+}
+
+.brand-sub {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.close {
+    width: 39px;
+    height: 39px;
+    border: 1px solid var(--border);
+    background: #171717;
+    color: white;
+    border-radius: 11px;
+    font-size: 22px;
+}
+
+.close:active {
+    background: var(--red);
+}
+
+.hero {
+    padding: 30px 0 24px;
+}
+
+.tag {
+    display: inline-block;
+    color: #ff6976;
+    background: rgba(227,38,54,.12);
+    border: 1px solid rgba(227,38,54,.25);
+    border-radius: 30px;
+    padding: 7px 11px;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+.hero h1 {
+    margin-top: 15px;
+    font-size: clamp(27px, 5vw, 39px);
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.hero h1 span {
+    color: var(--red);
+}
+
+.hero p {
+    margin-top: 9px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+    max-width: 540px;
+}
+
+.tabs {
+    display: flex;
+    gap: 9px;
+    overflow-x: auto;
+    padding: 3px 0 18px;
+    scrollbar-width: none;
+}
+
+.tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.tab {
+    flex: 0 0 auto;
+    padding: 12px 17px;
+    border: 1px solid var(--border);
+    background: #151515;
+    color: #aaa;
+    border-radius: 9px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .5px;
+}
+
+.tab.active {
+    color: white;
+    background: linear-gradient(135deg, #e32636, #a31522);
+    border-color: transparent;
+    box-shadow: 0 5px 18px rgba(227,38,54,.2);
+}
+
+.section {
+    display: none;
+    animation: appear .2s ease;
+}
+
+.section.active {
+    display: block;
+}
+
+@keyframes appear {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 7px 0 15px;
+}
+
+.section-heading h2 {
+    font-size: 17px;
+    font-weight: 900;
+}
+
+.section-heading span {
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+}
+
+.card {
+    position: relative;
+    min-width: 0;
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: linear-gradient(145deg, #1a1a1a, #101010);
+    overflow: hidden;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent, var(--red));
+}
+
+.card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.card-icon {
+    width: 43px;
+    height: 43px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    font-size: 22px;
+    background: rgba(227,38,54,.12);
+    border: 1px solid rgba(227,38,54,.15);
+}
+
+.card-label {
+    color: var(--accent, #ff6976);
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.card h3 {
+    margin-top: 16px;
+    font-size: 17px;
+    font-weight: 900;
+}
+
+.card p {
+    min-height: 38px;
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.card-action {
+    width: 100%;
+    margin-top: 17px;
+    padding: 12px;
+    border: 1px solid rgba(227,38,54,.35);
+    border-radius: 8px;
+    background: rgba(227,38,54,.12);
+    color: white;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: .7px;
+}
+
+.card-action:active {
+    background: var(--red);
+}
+
+.featured {
+    border-color: rgba(227,38,54,.35);
+    background: linear-gradient(145deg, rgba(227,38,54,.12), #111);
+}
+
+.coin-banner {
+    padding: 20px;
+    margin-bottom: 14px;
+    border: 1px solid rgba(227,38,54,.25);
+    border-radius: 13px;
+    background: linear-gradient(110deg, rgba(227,38,54,.14), #151515 75%);
+}
+
+.coin-banner strong {
+    display: block;
+    font-size: 16px;
+}
+
+.coin-banner p {
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.notice {
+    margin-top: 17px;
+    padding: 13px 15px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: #aaa;
+    background: rgba(255,255,255,.025);
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+.notice strong {
+    color: #eee;
+}
+
+.empty-value {
+    display: inline-block;
+    margin-top: 13px;
+    color: #ff6976;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .7px;
+}
+
+.footer {
+    margin-top: 28px;
+    padding-top: 17px;
+    border-top: 1px solid var(--border);
+    color: #666;
+    text-align: center;
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    transform: translate(-50%, 20px);
+    opacity: 0;
+    pointer-events: none;
+    padding: 12px 17px;
+    border: 1px solid rgba(227,38,54,.4);
+    border-radius: 9px;
+    background: #191919;
+    color: white;
+    font-size: 11px;
+    transition: .2s;
+    z-index: 10;
+    text-align: center;
+    width: max-content;
+    max-width: 90%;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+@media (max-width: 520px) {
+    .app { padding: 17px 14px 28px; }
+    .cards { grid-template-columns: 1fr; }
+    .card { padding: 17px; }
+    .card p { min-height: auto; }
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-mark">V</div>
+            <div>
+                <div class="brand-name">VOLTS ROLEPLAY</div>
+                <div class="brand-sub">LOJA OFICIAL</div>
+            </div>
+        </div>
+
+        <button class="close" onclick="closeStore()" aria-label="Fechar loja">×</button>
+    </header>
+
+    <section class="hero">
+        <span class="tag">VOLTS RP • LOJA OFICIAL</span>
+        <h1>EVOLUA SUA <span>JORNADA.</span></h1>
+        <p>Confira os produtos oficiais da Volts RolePlay e escolha o que combina com sua experiência dentro da cidade.</p>
+    </section>
+
+    <nav class="tabs">
+        <button class="tab active" onclick="showSection('vips', this)">VIPs</button>
+        <button class="tab" onclick="showSection('coins', this)">VOLTS COINS</button>
+        <button class="tab" onclick="showSection('exclusivos', this)">VOLTS EXCLUSIVOS</button>
+    </nav>
+
+    <main>
+        <!-- VIPS -->
+        <section class="section active" id="vips">
+            <div class="section-heading">
+                <h2>Planos VIP</h2>
+                <span>04 CATEGORIAS</span>
+            </div>
+
+            <div class="cards">
+                <article class="card" style="--accent:#c58a55">
+                    <div class="card-top">
+                        <div class="card-icon">🥉</div>
+                        <span class="card-label">VIP BRONZE</span>
+                    </div>
+                    <h3>Bronze</h3>
+                    <p>Conheça o plano VIP Bronze da Volts RP.</p>
+                    <span class="empty-value">VALOR EM BREVE</span>
+                    <button class="card-action" onclick="comingSoon()">CONFERIR PLANO</button>
+                </article>
+
+                <article class="card" style="--accent:#e8bd42">
+                    <div class="card-top">
+                        <div class="card-icon">🥇</div>
+                        <span class="card-label">VIP GOLD</span>
+                    </div>
+                    <h3>Gold</h3>
+                    <p>Conheça o plano VIP Gold da Volts RP.</p>
+                    <span class="empty-value">VALOR EM BREVE</span>
+                    <button class="card-action" onclick="comingSoon()">CONFERIR PLANO</button>
+                </article>
+
+                <article class="card" style="--accent:#b8c5d8">
+                    <div class="card-top">
+                        <div class="card-icon">💎</div>
+                        <span class="card-label">VIP PLATINUM</span>
+                    </div>
+                    <h3>Platinum</h3>
+                    <p>Conheça o plano VIP Platinum da Volts RP.</p>
+                    <span class="empty-value">VALOR EM BREVE</span>
+                    <button class="card-action" onclick="comingSoon()">CONFERIR PLANO</button>
+                </article>
+
+                <article class="card featured" style="--accent:#ff4657">
+                    <div class="card-top">
+                        <div class="card-icon">⚡</div>
+                        <span class="card-label">PLANO ESPECIAL</span>
+                    </div>
+                    <h3>Volts RP</h3>
+                    <p>Conheça o plano especial Volts RP.</p>
+                    <span class="empty-value">VALOR EM BREVE</span>
+                    <button class="card-action" onclick="comingSoon()">CONFERIR PLANO</button>
+                </article>
+            </div>
+        </section>
+
+        <!-- VOLTS COINS -->
+        <section class="section" id="coins">
+            <div class="section-heading">
+                <h2>Volts Coins</h2>
+                <span>MOEDA EXCLUSIVA</span>
+            </div>
+
+            <div class="coin-banner">
+                <strong>⚡ VOLTS COINS</strong>
+                <p>Uma moeda especial para adquirir benefícios e itens exclusivos dentro da cidade.</p>
+            </div>
+
+            <div class="cards">
+                <article class="card">
+                    <div class="card-top">
+                        <div class="card-icon">🪙</div>
+                        <span class="card-label">MOEDA OFICIAL</span>
+                    </div>
+                    <h3>Volts Coins</h3>
+                    <p>Consulte as opções de Volts Coins disponíveis.</p>
+                    <span class="empty-value">PACOTES EM BREVE</span>
+                    <button class="card-action" onclick="comingSoon()">VER PACOTES</button>
+                </article>
+
+                <article class="card">
+                    <div class="card-top">
+                        <div class="card-icon">🎁</div>
+                        <span class="card-label">COMO CONSEGUIR</span>
+                    </div>
+                    <h3>Ganhe Coins</h3>
+                    <p>Volts Coins podem ser obtidas por compras VIP e eventos oficiais do servidor.</p>
+                    <span class="empty-value">REGRAS OFICIAIS</span>
+                    <button class="card-action" onclick="comingSoon()">SAIBA MAIS</button>
+                </article>
+            </div>
+        </section>
+
+        <!-- EXCLUSIVOS -->
+        <section class="section" id="exclusivos">
+            <div class="section-heading">
+                <h2>Volts Exclusivos</h2>
+                <span>ITENS ESPECIAIS</span>
+            </div>
+
+            <div class="cards">
+                <article class="card">
+                    <div class="card-top">
+                        <div class="card-icon">🏡</div>
+                        <span class="card-label">PROPRIEDADES</span>
+                    </div>
+                    <h3>Casas Exclusivas</h3>
+                    <p>Propriedades especiais disponíveis para aquisição com Volts Coins.</p>
+                    <span class="empty-value">DISPONIBILIDADE EM BREVE</span>
+                    <button class="card-action" onclick="comingSoon()">CONFERIR CASAS</button>
+                </article>
+
+                <article class="card">
+                    <div class="card-top">
+                        <div class="card-icon">🚘</div>
+                        <span class="card-label">GARAGEM</span>
+                    </div>
+                    <h3>Vagas Extras</h3>
+                    <p>Amplie a capacidade da sua garagem com vagas adicionais.</p>
+                    <span class="empty-value">VALOR EM BREVE</span>
+                    <button class="card-action" onclick="comingSoon()">CONFERIR VAGAS</button>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <div class="notice">
+        <strong>ATENÇÃO:</strong> Os valores, pacotes e condições de compra serão publicados após a configuração oficial da loja.
+    </div>
+
+    <footer class="footer">
+        VOLTS ROLEPLAY © 2026 • TODOS OS DIREITOS RESERVADOS
+    </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+function showSection(id, button) {
+    document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+    });
+
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+
+    document.getElementById(id).classList.add('active');
+    button.classList.add('active');
+}
+
+function closeStore() {
+    try {
+        if (window.StoreBridge && typeof window.StoreBridge.close === 'function') {
+            window.StoreBridge.close();
+            return;
+        }
+    } catch (e) {}
+
+    window.dispatchEvent(new CustomEvent('volts:storeClose'));
+}
+
+function comingSoon() {
+    const toast = document.getElementById('toast');
+    toast.textContent = 'Esta opção estará disponível em breve!';
+    toast.classList.add('show');
+
+    clearTimeout(window.voltsToastTimer);
+    window.voltsToastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+    }, 2400);
+}
+
+window.addEventListener('volts:storeShow', function() {
+    window.scrollTo(0, 0);
+});
+</script>
+</body>
+  </html>
